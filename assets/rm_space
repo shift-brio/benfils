@@ -1,0 +1,25 @@
+#!/bin/bash
+cd $1
+  
+
+function run_loc(){
+	 locations="$1"
+	 if [[ ! -z $locations ]]; then
+	 	 for loc in "$(ls -d */)";do		     
+				
+		     loc="$loc"
+		     echo "$loc"
+			  if [[ -f "./$loc" ]];then
+				   l_name=${loc//[[:blank:]]/}
+					mv "./$loc" ./$l_name				   				   
+		     elif [[ -d "./$loc" ]];then
+				   cd "./$loc"				   
+		  			run_loc ./
+	 		  else
+					 echo "Location was not found"
+			  fi
+		  done
+	 fi
+}
+
+run_loc ./
